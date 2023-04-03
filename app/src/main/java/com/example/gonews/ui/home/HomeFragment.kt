@@ -5,8 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ServiceLifecycleDispatcher
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +18,7 @@ import com.example.newsaqq.adapter.NewsAdapter
 import com.example.newsaqq.api.RetrofitClient
 import com.example.newsaqq.model.News
 import com.example.newsaqq.utils.Constants
+import com.example.newsaqq.utils.Constants.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,8 +28,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var adapter: NewsAdapter
     private lateinit var newsList: RecyclerView
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -41,6 +43,25 @@ class HomeFragment : Fragment() {
 
         newsList = binding.newsList
         getNews()
+        val searchView: android.widget.SearchView = binding.searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    getNewsByString(query)
+                }
+                else
+                    getNews()
+                searchView.clearFocus() // shut down the keyboard
+                searchView.setQuery("", false) // clear the search bar
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d(TAG, newText.toString())
+                return false
+            }
+        })
         return root
     }
 
@@ -53,6 +74,27 @@ class HomeFragment : Fragment() {
         val page = 2 // replace with your desired page number
 
         RetrofitClient.newsApi.getHeadlines(country, page).enqueue(object : Callback<News> {
+            override fun onResponse(call: Call<News>, response: Response<News>) {
+                val news = response.body()
+                Log.d(Constants.TAG,response.body().toString())
+                if (news!=null) {
+                    Log.d(Constants.TAG,news.articles.toString())
+                    adapter = NewsAdapter(this@HomeFragment.requireContext(),news.articles)
+                    newsList.adapter = adapter
+                    newsList.layoutManager = LinearLayoutManager(this@HomeFragment.requireContext())
+                } else {
+                    Log.d(Constants.TAG,"Empty Check endpoints")
+                }
+            }
+            override fun onFailure(call: Call<News>, t: Throwable) {
+                Log.d(Constants.TAG,"Error in Fetching News",t)
+            }
+        })
+    }
+    private fun getNewsByString(category: String) {
+        val country = "in" // replace with your desired country code
+
+        RetrofitClient.newsApi.getHeadlinesByCategory(country, category).enqueue(object : Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
                 val news = response.body()
                 Log.d(Constants.TAG,response.body().toString())

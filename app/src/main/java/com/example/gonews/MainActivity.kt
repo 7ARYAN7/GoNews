@@ -1,6 +1,7 @@
 package com.example.gonews
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -11,7 +12,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import com.example.gonews.databinding.ActivityMainBinding
+import com.example.newsaqq.utils.Constants
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setSupportActionBar(binding.appBarMain.toolbar)
+            setSupportActionBar(binding.appBarMain.toolbar)
 
         binding.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -55,3 +57,16 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
+//val searchView: android.widget.SearchView = binding.searchView
+//searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+//    android.widget.SearchView.OnQueryTextListener {
+//    override fun onQueryTextSubmit(query: String?): Boolean {
+//        Log.d(Constants.TAG, "CAlled ${query}")
+//        return false
+//    }
+//
+//    override fun onQueryTextChange(newText: String?): Boolean {
+//        Log.d(Constants.TAG,newText.toString())
+//        return false
+//    }
+//})
