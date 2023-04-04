@@ -8,26 +8,57 @@
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="362dp"
-        android:layout_height="63dp"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/searchview_background"
         android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
         android:queryHint="Enter Category"
         app:layout_constraintBottom_toTopOf="@+id/newsList"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027" />
+
+
+    <Spinner
+        android:id="@+id/dropdown"
+        android:layout_width="138dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="16dp"
+        android:entries="@array/categories"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/newsList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.178" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newsList"
-        android:layout_width="376dp"
-        android:layout_height="576dp"
+        android:layout_width="389dp"
+        android:layout_height="439dp"
+        android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="128dp"
+        android:layout_height="29dp"
+        android:gravity="center|center_horizontal"
+        android:text="@string/selectCategory"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dropdown"
+        app:layout_constraintEnd_toStartOf="@+id/dropdown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.6" />
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

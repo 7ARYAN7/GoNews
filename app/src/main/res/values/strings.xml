@@ -13,4 +13,13 @@
     <string name="bookmark">Bookmark</string>
     <string name="Category">Category</string>
     <string name="menu_logout">Logout</string>
+    <string name="selectCategory">Select Category</string>
+
+    <string-array name="categories">
+        <item>Top Headings</item>
+        <item>Business</item>
+        <item>Sports</item>
+        <item>Technology</item>
+    </string-array>
+
 </resources>

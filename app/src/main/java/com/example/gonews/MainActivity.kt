@@ -57,16 +57,3 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
-//val searchView: android.widget.SearchView = binding.searchView
-//searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-//    android.widget.SearchView.OnQueryTextListener {
-//    override fun onQueryTextSubmit(query: String?): Boolean {
-//        Log.d(Constants.TAG, "CAlled ${query}")
-//        return false
-//    }
-//
-//    override fun onQueryTextChange(newText: String?): Boolean {
-//        Log.d(Constants.TAG,newText.toString())
-//        return false
-//    }
-//})
